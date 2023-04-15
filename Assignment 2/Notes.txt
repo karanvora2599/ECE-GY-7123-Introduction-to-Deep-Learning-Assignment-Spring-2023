@@ -1,0 +1,73 @@
+Convolution example:
+
+Let's say we have a 3-layer input tensor with dimensions (H_in, W_in, C_in), where H_in 
+is the height, W_in is the width, and C_in is the number of channels. We also have a 
+convolutional layer with 96 filters, where each filter has dimensions (F_h, F_w, C_in).
+
+To apply these filters to the input tensor, we perform a convolution operation by sliding 
+each filter across the input tensor and computing the dot product between the filter 
+and the local region of the input tensor that it covers. The result of each dot product is 
+a scalar value, which is then used to populate the corresponding entry in the output tensor.
+
+The output tensor has dimensions (H_out, W_out, C_out), where H_out and W_out are 
+determined by the size of the filters, the padding used, and the stride length, and 
+C_out is equal to the number of filters used in the layer (in this case, 96). The formula 
+for computing the output tensor dimensions is:
+
+H_out = (H_in - F_h + 2P)/S + 1
+W_out = (W_in - F_w + 2P)/S + 1
+C_out = number of filters
+
+where P is the amount of padding used (if any), and S is the stride length (i.e., the distance between adjacent filter positions).
+
+To summarize, applying 96 filters to a 3-layer input in a convolutional layer involves 
+sliding each filter across the input tensor, computing the dot product between the filter 
+and the local region of the input tensor it covers, and populating the corresponding 
+entry in the output tensor. The size and number of filters used, as well as the padding 
+and stride length, determine the spatial dimensions and depth of the output tensor.
+
+====================================================================================================================================================================
+
+AlexNet:
+
+-> Input layer: The input to the network is a 227x227x3 image, where the 3 channels 
+represent the red, green, and blue color channels.
+
+-> Convolutional layer 1: This layer consists of 96 filters with a size of 11x11x3, a stride 
+of 4, and no padding. The output of this layer is 55x55x96, where 55 is the result of 
+the following calculation: (227 - 11)/4 + 1. The activation function used is ReLU.
+
+-> Max pooling layer 1: This layer performs max pooling with a pool size of 3x3 and a 
+stride of 2. The output of this layer is 27x27x96.
+
+-> Convolutional layer 2: This layer consists of 256 filters with a size of 5x5x96, a stride 
+of 1, and padding of 2. The output of this layer is 27x27x256. The activation function 
+used is ReLU.
+
+-> Max pooling layer 2: This layer performs max pooling with a pool size of 3x3 and a 
+stride of 2. The output of this layer is 13x13x256.
+
+-> Convolutional layer 3: This layer consists of 384 filters with a size of 3x3x256, a 
+stride of 1, and padding of 1. The output of this layer is 13x13x384. The activation 
+function used is ReLU.
+
+-> Convolutional layer 4: This layer consists of 384 filters with a size of 3x3x384, a 
+stride of 1, and padding of 1. The output of this layer is 13x13x384. The activation 
+function used is ReLU.
+
+-> Convolutional layer 5: This layer consists of 256 filters with a size of 3x3x384, a 
+stride of 1, and padding of 1. The output of this layer is 13x13x256. The activation 
+function used is ReLU.
+
+-> Max pooling layer 3: This layer performs max pooling with a pool size of 3x3 and a 
+stride of 2. The output of this layer is 6x6x256.
+
+-> Fully connected layer 1: This layer consists of 4096 neurons. The output of this layer 
+is fed through a ReLU activation function and a dropout layer with a dropout rate of 0.5.
+
+-> Fully connected layer 2: This layer consists of 4096 neurons. The output of this layer 
+is fed through a ReLU activation function and a dropout layer with a dropout rate of 0.5.
+
+-> Output layer: This layer consists of 1000 neurons, representing the 1000 classes in 
+the ImageNet dataset. The output of this layer is fed through a softmax activation function 
+to produce class probabilities.
